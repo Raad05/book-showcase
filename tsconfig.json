@@ -18,7 +18,11 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "removeComments": true,
+    "noEmitOnError": true,
+    "sourceMap": true,
+    "noImplicitReturns": true
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
