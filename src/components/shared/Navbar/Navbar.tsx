@@ -10,26 +10,40 @@ const Navbar = () => {
   const logout = authContext?.logout;
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white">Book Showcase</div>
-        {loggedUser?.user ? (
-          <div className="flex items-center">
-            <p className="text-white">Welcome, {loggedUser.user.username}</p>
-            <button
-              onClick={logout}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        {loggedUser?.user && (
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
             >
-              Logout
-            </button>
+              <div className="w-20 border border-gray-300 rounded-full bg-accent">
+                <p className="text-white text-2xl mt-2">
+                  {loggedUser.user.username[0].toUpperCase()}
+                </p>
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <p className="text-lg">
+                  <span className="font-bold">Username: </span>
+                  {loggedUser.user.username}
+                </p>
+              </li>
+
+              <li>
+                <button className="text-lg" onClick={logout}>
+                  Logout
+                </button>
+              </li>
+            </ul>
           </div>
-        ) : (
-          <button
-            onClick={() => navigate("/login")}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Login
-          </button>
         )}
       </div>
     </nav>

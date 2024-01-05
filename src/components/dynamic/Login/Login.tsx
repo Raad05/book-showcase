@@ -11,6 +11,7 @@ interface FormData {
 const Login = () => {
   const [data, setData] = useState<FormData>({ email: "", password: "" });
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,13 +34,11 @@ const Login = () => {
         localStorage.setItem("token", access);
         localStorage.setItem("user", JSON.stringify(user));
         navigate("/books");
-      } else {
-        console.log("Error occurred. Please try again later");
       }
-      alert("Login successful");
+      setError("");
     } catch (err) {
       console.log("Login failed", err);
-      alert("Failed to login");
+      setError("Invalid email or password");
     }
   };
 
@@ -74,6 +73,7 @@ const Login = () => {
                 required
               />
             </div>
+            <p className="text-red-400">{error}</p>
             <div className="form-control mt-6">
               <button onClick={login} type="submit" className="btn btn-accent">
                 LOGIN

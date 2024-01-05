@@ -10,7 +10,7 @@ interface BookType {
 }
 
 const Books = () => {
-  const [books, setBooks] = useState<null | BookType[]>(null);
+  const [books, setBooks] = useState<BookType[]>([]);
 
   const getBooks = async () => {
     try {
@@ -31,14 +31,40 @@ const Books = () => {
 
   useEffect(() => {
     getBooks();
-    // console.log(books);
-  });
+  }, []);
 
   return (
-    <div className="books">
-      {books?.map((book, idx) => (
-        <p key={idx}>{book.book_name}</p>
-      ))}
+    <div className="books text-center">
+      <h3 className="my-10 text-4xl font-bold">Total Books: {books.length}</h3>
+      <div className="grid grid-cols-3 gap-y-10">
+        {books.map((book, idx) => (
+          <div key={idx} className="w-96 glass m-auto rounded-lg">
+            <div className="card-body">
+              <h2 className="text-2xl font-bold">{book.book_name}</h2>
+              <p>
+                <span className="font-bold text-lg">Category : </span>
+                {book.book_type}
+              </p>
+              <div className="author">
+                <p>
+                  <span className="font-bold">Author : </span>
+                  {book.author_info.name}
+                </p>
+                <p className="text-xs">
+                  <span className="font-bold">Born in : </span>
+                  {book.author_info.birth_year},{" "}
+                  <span className="font-bold">Gender : </span>
+                  {book.author_info.gender}
+                </p>
+              </div>
+              <p className="mt-3">
+                <span className="font-bold">Published On : </span>
+                {book.published_on}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
