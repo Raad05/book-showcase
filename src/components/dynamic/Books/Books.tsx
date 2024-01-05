@@ -1,8 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+interface BookType {
+  book_type: string;
+  book_name: string;
+  author_info: { name: string; birth_year: number; gender: string };
+  published_on: number;
+  comments: string[];
+}
+
 const Books = () => {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<null | BookType[]>(null);
 
   const getBooks = async () => {
     try {
@@ -28,7 +36,7 @@ const Books = () => {
 
   return (
     <div className="books">
-      {books.map((book, idx) => (
+      {books?.map((book, idx) => (
         <p key={idx}>{book.book_name}</p>
       ))}
     </div>
