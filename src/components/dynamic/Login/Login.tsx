@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ChangeEvent, MouseEvent, useState } from "react";
 
 // form data structure
@@ -17,9 +18,25 @@ const Login = () => {
     }));
   };
 
-  const login = (e: MouseEvent<HTMLButtonElement>) => {
+  const login = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(data);
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/rest-auth/login/",
+        data
+      );
+      if (res.status === 200) {
+        const { access } = res.data;
+        localStorage.setItem("token", access);
+      } else {
+        console.log("Error occurred. Please try again later");
+      }
+      console.log(res.data);
+      alert("Login successful");
+    } catch (err) {
+      console.log("Login failed", err);
+      alert("Failed to login");
+    }
   };
 
   return (
