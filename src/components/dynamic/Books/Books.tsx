@@ -15,8 +15,6 @@ const Books = () => {
           },
         });
         setBooks(res.data);
-      } else {
-        console.log("Failed to load books");
       }
     } catch (error) {
       console.error("Failed to fetch books", error);
@@ -25,11 +23,14 @@ const Books = () => {
 
   useEffect(() => {
     getBooks();
+    // console.log(books);
   });
 
   return (
     <div className="books">
-      <button>Books</button>
+      {books.map((book, idx) => (
+        <p key={idx}>{book.book_name}</p>
+      ))}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ChangeEvent, MouseEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // form data structure
 interface FormData {
@@ -9,6 +10,7 @@ interface FormData {
 
 const Login = () => {
   const [data, setData] = useState<FormData>({ email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,7 +29,10 @@ const Login = () => {
       );
       if (res.status === 200) {
         const { access } = res.data;
+        const { user } = res.data;
         localStorage.setItem("token", access);
+        localStorage.setItem("user", JSON.stringify(user));
+        navigate("/books");
       } else {
         console.log("Error occurred. Please try again later");
       }
