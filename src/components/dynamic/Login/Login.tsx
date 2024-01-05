@@ -31,7 +31,6 @@ const Login = () => {
       } else {
         console.log("Error occurred. Please try again later");
       }
-      console.log(res.data);
       alert("Login successful");
     } catch (err) {
       console.log("Login failed", err);

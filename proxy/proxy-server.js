@@ -9,15 +9,37 @@ app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
 
+app.get("/get_books/", async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+    if (!token) {
+      return res.status(401).send("Unauthorized user");
+    }
+    const result = await axios.get(
+      "https://assignment.ongshak.com/get_books/",
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    res.send(result.data);
+  } catch (err) {
+    console.log("Error fetching books: ", err);
+    res.status(500).send("Failed to load books");
+  }
+});
+
 app.post("/rest-auth/login/", async (req, res) => {
   try {
-    const res = await axios.post(
+    const result = await axios.post(
       "https://assignment.ongshak.com/rest-auth/login/",
       req.body
     );
-    res.send(res.data);
-  } catch (error) {
-    res.status(500).send("Error");
+    res.send(result.data);
+  } catch (err) {
+    console.log("Error: ", err);
+    res.status(500).send("Failed to login.");
   }
 });
 
