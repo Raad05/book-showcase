@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ChangeEvent, MouseEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // form data structure
 interface FormData {
@@ -11,7 +11,10 @@ interface FormData {
 const Login = () => {
   const [data, setData] = useState<FormData>({ email: "", password: "" });
   const navigate = useNavigate();
+  const location = useLocation();
   const [error, setError] = useState("");
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,9 +36,10 @@ const Login = () => {
         const { user } = res.data;
         localStorage.setItem("token", access);
         localStorage.setItem("user", JSON.stringify(user));
-        navigate("/books");
+        navigate(from, { replace: true });
       }
       setError("");
+      window.location.reload();
     } catch (err) {
       console.log("Login failed", err);
       setError("Invalid email or password");
@@ -47,7 +51,7 @@ const Login = () => {
       <div className="hero-content">
         <div className="w-full shadow-2xl bg-gray-900 rounded-lg">
           <h4 className="text-2xl text-center mt-10 font-bold">
-            Book Showcase
+            Book<span className="text-gray-400">Showcase</span>
           </h4>
           <hr className="mx-14 my-2" />
           <form className="card-body">
@@ -77,7 +81,7 @@ const Login = () => {
                 required
               />
             </div>
-            <p className="text-red-400">{error}</p>
+            <p className="text-red-400 text-center">{error}</p>
             <div className="form-control mt-6">
               <button onClick={login} type="submit" className="btn btn-accent">
                 LOGIN

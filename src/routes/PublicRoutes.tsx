@@ -3,6 +3,7 @@ import Main from "../layout/Main";
 import Home from "../components/dynamic/Home/Home";
 import Login from "../components/dynamic/Login/Login";
 import Books from "../components/dynamic/Books/Books";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/books",
-        element: <Books></Books>,
+        element: (
+          <PrivateRoute>
+            <Books></Books>
+          </PrivateRoute>
+        ),
       },
     ],
   },

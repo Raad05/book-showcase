@@ -1,5 +1,4 @@
 import { ReactNode, createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface UserType {
   pk: number;
@@ -18,7 +17,7 @@ interface AuthContextType {
 }
 
 interface UserContextProps {
-  children: ReactNode; // Define the type for children prop
+  children: ReactNode;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -26,8 +25,6 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 );
 
 const UserContext = ({ children }: UserContextProps) => {
-  const navigate = useNavigate();
-
   const [loggedUser, setLoggedUser] = useState(() => {
     const user = localStorage.getItem("user");
     const token = localStorage.getItem("token");
@@ -42,7 +39,6 @@ const UserContext = ({ children }: UserContextProps) => {
     setLoggedUser({ user: null, token: null });
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    navigate("/login");
   };
 
   const authInfo = { loggedUser, logout };

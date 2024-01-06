@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface BookType {
   book_type: string;
@@ -12,6 +13,7 @@ interface BookType {
 const Books = () => {
   const [books, setBooks] = useState<BookType[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const getBooks = async () => {
     try {
@@ -25,6 +27,8 @@ const Books = () => {
         });
         setBooks(res.data);
         setLoading(false);
+      } else {
+        navigate("/login");
       }
     } catch (error) {
       console.error("Failed to fetch books", error);
@@ -33,7 +37,7 @@ const Books = () => {
 
   useEffect(() => {
     getBooks();
-  }, []);
+  });
 
   return (
     <div className="books">
