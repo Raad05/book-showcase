@@ -47,12 +47,15 @@ const Books = () => {
         </div>
       ) : (
         <div className="text-center">
-          <h3 className="my-10 text-4xl font-bold">
+          <h3 className="my-10 text-2xl lg:text-4xl md:text-3xl font-bold">
             Total Books: {books.length}
           </h3>
-          <div className="grid grid-cols-3 gap-y-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-y-10">
             {books.map((book, idx) => (
-              <div key={idx} className="w-96 glass m-auto rounded-lg">
+              <div
+                key={idx}
+                className="w-80 lg:w-96 glass m-auto rounded-lg hover:scale-105 duration-150"
+              >
                 <div className="card-body">
                   <h2 className="text-2xl font-bold">{book.book_name}</h2>
                   <p>
