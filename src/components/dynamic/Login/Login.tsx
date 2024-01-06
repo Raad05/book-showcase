@@ -44,8 +44,12 @@ const Login = () => {
 
   return (
     <div className="hero min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <div className="hero-content">
+        <div className="w-full shadow-2xl bg-gray-900 rounded-lg">
+          <h4 className="text-2xl text-center mt-10 font-bold">
+            Book Showcase
+          </h4>
+          <hr className="mx-14 my-2" />
           <form className="card-body">
             <div className="form-control">
               <label className="label">
